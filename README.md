@@ -1,5 +1,8 @@
 ＃网络
-![topo](https://github.com/loong-novice/network/blob/readme-edits/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_126244db-33cc-4524-8aab-b192631a6bc7.png)
+BGP属性 研究
+
+本人 网络小白一名 初学者 有理解不对的 希望大家批评指导
+
 
 研究 ： BGP -med属性   local-pre属性 
 
@@ -14,8 +17,21 @@ IP地址规划 例如 r1与r2 连接  r1的接口IP为 12.1.1.1 24 r2 为12.1.1
 
 
 基本配置 在后续上传的文件里 这里大体说一下几个重点
-首先用环回口做更新源（做peer）因此配置的时候需要 加上 
-peer XXXX connect-interface loopback0
+首先用环回口做更新源（做peer）因此配置的时候需要 加上 peer XXXX connect-interface loopback0
+
+![bgp-connect](https://github.com/loong-novice/network/blob/readme-edits/bgp%20connect.png)
+这里 我建立一个group 100 是 internal（表示IBGP） 在r2上还多存在一个group 200 作为ex（表示 EBGP）
+在r1上看 BGP peer（r2 r3） 建立成功  
+
+![peer-est](https://github.com/loong-novice/network/blob/readme-edits/bgp-peer.png)
+
+ 在r2 上看peer 发现 IBGP 邻居建立成功，但是EBGP出现Idle  
+ 
+
+
+
+
+
 
 
 
