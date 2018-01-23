@@ -45,7 +45,8 @@ IP地址规划 例如 r1与r2 连接  r1的接口IP为 12.1.1.1 24 r2 为12.1.1
 这说明是本地始发路由，但是在拓扑中该路由的目的网段4.4.4.4 并没有直接连接在BGP speaker上呀？
 其实这条路由优选了ospf 因为ospf的外部路由优先级高于ibgp ebgp ospf--10  IBGP---255 Ebgp--255
 在r1上看路由表就清楚了，dis ip routing-table
-加图片
+
+![r1-ip routing](https://github.com/loong-novice/network/blob/readme-edits/r1-ip%20routing.png)
 
 其实解决办法有两个 
 1 其实是业务网段与互联段没有规划好 例如 4.4.4.4 应该是业务网段，应该在r4中 BGP中 network 出来 而不是在ospf中network 在import
@@ -53,14 +54,17 @@ IP地址规划 例如 r1与r2 连接  r1的接口IP为 12.1.1.1 24 r2 为12.1.1
 
 我们先来看第二个解决办法 
 分别在 R1 R2 R3 R4 上调节 ospf 与BGP 优先级ospf   preference 250 preference ase 250   bgp preference 120 120 120 
- 图2 
+
+![图2](https://github.com/loong-novice/network/blob/readme-edits/%E5%9B%BE%E4%BA%8C.png) 
+
 这里默认选择了r2 上的路径
 这时我们修改r2的med 数值  先创建一个 route-policy 然后在BGP中 使用策略 
 route-policy in-bgp permit node 10
 apply cost 50 
 在BGP中 peer 4.4.4.4 route-policy in-bgp import 
 这时候在r4 上看1.1.1.1 的路由 就应该优选 3.3.3.3  
-图3 
+
+![图3](https://github.com/loong-novice/network/blob/readme-edits/%E5%9B%BE%E4%B8%89.png) 
 
 
 在这里看到 med 值为1 说明 med 并没有传递 侧面证明了 med 是可选非过度属性 
