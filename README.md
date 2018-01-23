@@ -3,6 +3,7 @@ BGP属性 研究
 
 本人 网络小白一名 初学者 有理解不对的 希望大家批评指导
 
+![topo](https://github.com/loong-novice/network/blob/readme-edits/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_126244db-33cc-4524-8aab-b192631a6bc7.png)
 
 研究 ： BGP -med属性   local-pre属性 
 
@@ -33,8 +34,12 @@ IP地址规划 例如 r1与r2 连接  r1的接口IP为 12.1.1.1 24 r2 为12.1.1
  否则对等体无法建立。当 hop=1时候 表示建立EBGP是直连对等体。（loopback 口可以当成 一个终端来看 因此hop>=2）
  修改后对等体建立成功
  
+ ![R4-peer](https://github.com/loong-novice/network/blob/master/r4-peer-est.png)
  
-
+ 由于所有路由都在ospf中宣告，包括直连网段加上loopback 网段 然后在BGP中引入直连与ospf
+ 由于med 是用于EBGP对等体判断流量进入其他AS时候的最优路由 也就是在r4 上宣告的 4.4.4.4 在r1 在未修改med时候，可以看到两条等价路由 然后修改med值
+ 正常情况下会优选r2 因为最后比较到Route-id小的。我们先 在r1  dis bgp routing-table  
+ 
 
 
 
