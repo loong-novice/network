@@ -26,6 +26,13 @@ IP地址规划 例如 r1与r2 连接  r1的接口IP为 12.1.1.1 24 r2 为12.1.1
 ![peer-est](https://github.com/loong-novice/network/blob/readme-edits/bgp-peer.png)
 
  在r2 上看peer 发现 IBGP 邻居建立成功，但是EBGP出现Idle  
+
+![peer-idle](https://github.com/loong-novice/network/blob/readme-edits/peer-idle.png)
+ 
+ 原因在于 在用loopback建立EBGP时候 需要修改ebgp-max-hop 当BGP使用loopback口建立EBGP对等体时候，必须指定本参数>=2
+ 否则对等体无法建立。当 hop=1时候 表示建立EBGP是直连对等体。（loopback 口可以当成 一个终端来看 因此hop>=2）
+ 修改后对等体建立成功
+ 
  
 
 
