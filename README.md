@@ -67,11 +67,55 @@ apply cost 66
 ![图3](https://github.com/loong-novice/network/blob/readme-edits/%E5%9B%BE%E4%B8%89.png) 
 
 
- 
-以上配置 为配置一 文件
+以上配置为配置一文件
 
 
+第一个解决办法  就是用互联接口建立peer 这时候有人问为什么不继续用环回口，首先在ospf中宣告互联网段，在BGP中宣告环回口地址，这样建立不起来peer
+因为在ospf中无法有到达环回口路由，可以写一条静态路由 这样繁琐不说 如果是单出口，比如r1就上联或者下联一台r2，可以写一个默认路由，把无法匹配的路由全撇到出口，在通过直连获取到r2环回口
+这里我们用互联接口做peer 在BGP中宣告环回口（可以理解为业务网段） ospf 宣告互联网段 具体配置在 配置二 （此种方法 难度不大 也都是基本配置）
+在 r2 上 还是bgp设置 export 策略  也就是r2发给r4的路由 med 值都为50 
+peer 24.1.1.4 route-policy in-bgp export 
+
+在r4上看r1的 1.1.1.1 路由 应该首选r3这条路径 
+![r4](https://github.com/loong-novice/network/blob/readme-edits/r4.png)
+
+
+如果 在r2上写 peer 24.1.1.4 route-policy in-bgp import 表示收r4发给r2的路由 在经过r2后修改med 这时候就是在r1上看r4（4.4.4.4）的路由 
+
+未修改med
+
+![r1-bef](https://github.com/loong-novice/network/blob/readme-edits/r2--med-before.png)
+
+修改后med
+
+![r1-after](https://github.com/loong-novice/network/blob/readme-edits/r2-med-import.png)
+
+
+也可以修改local-pre 来进行选路 值越大越优选  在r2上在设置
+
+
+![local-be](https://github.com/loong-novice/network/blob/readme-edits/bgp%20local%20%E5%89%8D.png)
+
+![after](https://github.com/loong-novice/network/blob/readme-edits/BGP%20local%20%E5%90%8E.png)
  
+
+
+如果在r3上也修改med 就是 r3 med>r2 med  但是r3的locprf < r2 locprf  这时候看选路优选那个?
+
+
+
+![gai](https://github.com/loong-novice/network/blob/readme-edits/r3%E4%BF%AE%E6%94%B9%20%E5%88%A4%E6%96%ADmed%20local.png)
+ 
+
+实验表明 local 优先级 大于 med
+ 
+ 
+
+
+
+
+
+
 
 
 
