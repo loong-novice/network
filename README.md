@@ -60,7 +60,7 @@ IP地址规划 例如 r1与r2 连接  r1的接口IP为 12.1.1.1 24 r2 为12.1.1
 这里默认选择了r2 上的路径
 这时我们修改r2的med 数值  先创建一个 route-policy 然后在BGP中 使用策略 
 route-policy in-bgp permit node 10
-apply cost 50 
+apply cost 66 
 在BGP中 peer 4.4.4.4 route-policy in-bgp export 
 这时候在r4 上看1.1.1.1 的路由 就应该优选 3.3.3.3  
 
