@@ -60,16 +60,15 @@ IP地址规划 例如 r1与r2 连接  r1的接口IP为 12.1.1.1 24 r2 为12.1.1
 这里默认选择了r2 上的路径
 这时我们修改r2的med 数值  先创建一个 route-policy 然后在BGP中 使用策略 
 route-policy in-bgp permit node 10
-apply cost 50 
-在BGP中 peer 4.4.4.4 route-policy in-bgp import 
+apply cost 66 
+在BGP中 peer 4.4.4.4 route-policy in-bgp export 
 这时候在r4 上看1.1.1.1 的路由 就应该优选 3.3.3.3  
 
 ![图3](https://github.com/loong-novice/network/blob/readme-edits/%E5%9B%BE%E4%B8%89.png) 
 
 
-在这里看到 med 值为1 说明 med 并没有传递 侧面证明了 med 是可选非过度属性 
+ 
 以上配置 为配置一 文件
-
 
 
  
